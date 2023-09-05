@@ -1,0 +1,29 @@
+.letter_bank {
+  text-align: center;
+  background-color: cadetblue;
+  padding: 50px;
+  border-radius: 5px;
+  width: 75%;
+  margin: auto;
+}
+.letter_bank button {
+  padding: 5px;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 5px;
+  border: 5px solid black;
+  font-style: italic;
+  background-color: cadetblue;
+  cursor: pointer;
+}
+h3 {
+  font-size: 2rem;
+  font-weight: bold;
+  font-family: monospace;
+}
+.letter_bank .green {
+  background-color: green;
+}
+.letter_bank .gray {
+  background-color: gray;
+}
