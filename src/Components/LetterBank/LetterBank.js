@@ -51,7 +51,6 @@ function LetterBank(props) {
     return letterArr.filter((item) => item.toLowerCase() == ltr.toLowerCase())
       .length;
   }
-  console.log(props.randomWord);
 
   const [selectedLetter, updateSelectedLetter] = useState("");
   const alphabets = [

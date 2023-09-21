@@ -14,18 +14,49 @@ function App() {
   const [correctGuessArr, updateCorrectGuessArr] = useState([]);
   const [wrongGuessArr, updateWrongGuessarr] = useState([]);
   const [hasWon, updateHasWon] = useState(false);
-
   async function fetchApi() {
     try {
-      const response = await fetch("https://random-words-api.vercel.app/word");
-      const data = await response.json();
-      updateRandomWord(function () {
-        return data[0];
+      const response = await fetch(
+        "https://random-word-api.vercel.app/api?words=1"
+      );
+      const data = await response.json().then((e) => {
+        updateRandomWord(function (prev) {
+          return { ...prev, word: e[0] };
+        });
+        fetchDefApi(e[0]);
+        console.log(randomWord);
       });
     } catch (error) {
       console.log(error);
     }
   }
+  async function fetchDefApi(word) {
+    try {
+      const response = await fetch(
+        `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`
+      );
+      const data = await response.json();
+      const meaningArr = data[0].meanings;
+      const newArr = [];
+      meaningArr.forEach((meaning, index) => {
+        newArr[index] = {
+          partOfSpeech: meaning.partOfSpeech,
+          definition: meaning.definitions[0].definition,
+        };
+      });
+      updateRandomWord(function (prev) {
+        return {
+          ...prev,
+          definition: newArr[0].definition,
+          partOfSpeech: newArr[0].partOfSpeech,
+        };
+      });
+      return newArr;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   function checkIfWon() {
     if (Object.keys(randomWord).length > 0) {
       {
